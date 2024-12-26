@@ -1,1 +1,44 @@
 
+name: Deploy Django App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Check out the code
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    # Step 2: Set up Python
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    # Step 3: Install dependencies
+    - name: Install Dependencies
+      run: |
+        python -m venv venv
+        source venv/bin/activate
+        pip install -r requirements.txt
+
+    # Step 4: Run migrations
+    - name: Run Migrations
+      run: |
+        python manage.py migrate
+
+    # Step 5: Collect static files
+    - name: Collect Static Files
+      run: |
+        python manage.py collectstatic --noinput
+
+    # Step 6: Run tests (Optional)
+    - name: Run Tests
+      run: |
+        python manage.py test
