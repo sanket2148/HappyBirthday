@@ -1,0 +1,371 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">-->
+<!--    <title>Your Surprise Awaits!</title>-->
+<!--    <style>-->
+<!--        body {-->
+<!--            font-family: 'Arial', sans-serif;-->
+<!--            margin: 0;-->
+<!--            padding: 0;-->
+<!--            background: url('/static/bg.jpg') no-repeat center center/cover;-->
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--            align-items: center;-->
+<!--            min-height: 100vh;-->
+<!--            color: white;-->
+<!--            overflow: hidden;-->
+<!--        }-->
+
+<!--        .container {-->
+<!--            text-align: center;-->
+<!--            background: rgba(0, 0, 0, 0.6);-->
+<!--            padding: 40px;-->
+<!--            border-radius: 15px;-->
+<!--            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);-->
+<!--            max-width: 600px;-->
+<!--            animation: fadeIn 2s ease-in-out;-->
+<!--        }-->
+
+<!--        h1 {-->
+<!--            font-size: 2.5rem;-->
+<!--            color: #ffd700;-->
+<!--            margin: 0;-->
+<!--            font-family: 'Great Vibes', cursive;-->
+<!--        }-->
+
+<!--        p {-->
+<!--            font-size: 1.5rem;-->
+<!--            margin: 20px 0;-->
+<!--            text-shadow: 1px 1px 5px rgba(255, 255, 255, 0.8);-->
+<!--            font-family: 'Great Vibes', cursive;-->
+<!--        }-->
+
+<!--        .button {-->
+<!--            display: inline-block;-->
+<!--            margin-top: 20px;-->
+<!--            padding: 10px 20px;-->
+<!--            font-size: 1.2rem;-->
+<!--            color: white;-->
+<!--            background: #ff6b81;-->
+<!--            text-decoration: none;-->
+<!--            border-radius: 25px;-->
+<!--            transition: all 0.3s ease-in-out;-->
+<!--        }-->
+
+<!--        .button:hover {-->
+<!--            background: white;-->
+<!--            color: #ff6b81;-->
+<!--            box-shadow: 0 6px 15px rgba(255, 107, 129, 0.8);-->
+<!--        }-->
+
+<!--        @keyframes fadeIn {-->
+<!--            from {-->
+<!--                opacity: 0;-->
+<!--                transform: translateY(20px);-->
+<!--            }-->
+<!--            to {-->
+<!--                opacity: 1;-->
+<!--                transform: translateY(0);-->
+<!--            }-->
+<!--        }-->
+
+<!--        #visualizer {-->
+<!--            width: 100%;-->
+<!--            height: 150px;-->
+<!--            background: rgba(255, 255, 255, 0.2);-->
+<!--            margin-top: 20px;-->
+<!--        }-->
+
+<!--        .firework {-->
+<!--            position: absolute;-->
+<!--            top: 50%;-->
+<!--            left: 50%;-->
+<!--            width: 10px;-->
+<!--            height: 10px;-->
+<!--            background: radial-gradient(circle, #ff6b81, transparent);-->
+<!--            border-radius: 50%;-->
+<!--            animation: explode 1s ease-out forwards;-->
+<!--        }-->
+
+<!--        @keyframes explode {-->
+<!--            0% {-->
+<!--                transform: scale(0);-->
+<!--                opacity: 1;-->
+<!--            }-->
+<!--            100% {-->
+<!--                transform: scale(1);-->
+<!--                opacity: 0;-->
+<!--            }-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <div class="container">-->
+<!--        <div class="meter-container">-->
+<!--            <p>How much do I love you?</p>-->
+<!--            <button onclick="startMeter()" class="button">Find Out! ❤️</button>-->
+<!--            <p id="meter-output" style="font-size: 1.5rem; color: #ff6b81;"></p>-->
+<!--        </div>-->
+<!--        <div id="firework-container"></div>-->
+
+<!--        <h1>Get Ready!</h1>-->
+<!--        <p>-->
+<!--            Before you press play, my love, do me a little favor. Grab your phone and start recording yourself. I want to treasure the sparkle in your eyes, the smile on your lips, and the magic of this moment forever. You’re my everything, and seeing your joy is the greatest gift I could ever ask for. 🎥❤️-->
+<!--        </p>-->
+<!--        <canvas id="visualizer"></canvas>-->
+<!--        <audio id="audio-player" controls>-->
+<!--            <source src="/static/song.mp3" type="audio/mpeg">-->
+<!--            Your browser does not support the audio element.-->
+<!--        </audio>-->
+<!--    </div>-->
+
+<!--    <script>-->
+<!--        // Love Meter Script-->
+<!--        function startMeter() {-->
+<!--            let output = document.getElementById("meter-output");-->
+<!--            let count = 0;-->
+<!--            let interval = setInterval(() => {-->
+<!--                count += 5;-->
+<!--                output.innerText = `${count}%`;-->
+<!--                if (count === 100) {-->
+<!--                    clearInterval(interval);-->
+<!--                    output.innerText = "100% – And then some! ❤️";-->
+<!--                }-->
+<!--            }, 100);-->
+<!--        }-->
+
+<!--        // Music Visualizer Script-->
+<!--        const canvas = document.getElementById("visualizer");-->
+<!--        const ctx = canvas.getContext("2d");-->
+<!--        const audio = document.getElementById("audio-player");-->
+<!--        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();-->
+<!--        const analyser = audioCtx.createAnalyser();-->
+
+<!--        audio.addEventListener("play", () => {-->
+<!--            if (audioCtx.state === 'suspended') {-->
+<!--                audioCtx.resume();-->
+<!--            }-->
+<!--            const source = audioCtx.createMediaElementSource(audio);-->
+<!--            source.connect(analyser);-->
+<!--            analyser.connect(audioCtx.destination);-->
+
+<!--            analyser.fftSize = 256;-->
+<!--            const bufferLength = analyser.frequencyBinCount;-->
+<!--            const dataArray = new Uint8Array(bufferLength);-->
+
+<!--            function draw() {-->
+<!--                ctx.clearRect(0, 0, canvas.width, canvas.height);-->
+<!--                analyser.getByteFrequencyData(dataArray);-->
+
+<!--                ctx.fillStyle = "rgba(0, 0, 0, 0.1)";-->
+<!--                ctx.fillRect(0, 0, canvas.width, canvas.height);-->
+
+<!--                const barWidth = (canvas.width / bufferLength) * 2.5;-->
+<!--                let barHeight;-->
+<!--                let x = 0;-->
+
+<!--                for (let i = 0; i < bufferLength; i++) {-->
+<!--                    barHeight = dataArray[i];-->
+<!--                    ctx.fillStyle = `rgb(${barHeight + 100}, 50, 50)`;-->
+<!--                    ctx.fillRect(x, canvas.height - barHeight / 2, barWidth, barHeight / 2);-->
+<!--                    x += barWidth + 1;-->
+<!--                }-->
+<!--                requestAnimationFrame(draw);-->
+<!--            }-->
+<!--            draw();-->
+<!--        });-->
+
+<!--        // Fireworks Animation Script-->
+<!--        function createFirework() {-->
+<!--            const firework = document.createElement("div");-->
+<!--            firework.classList.add("firework");-->
+<!--            firework.style.left = Math.random() * 100 + "%";-->
+<!--            firework.style.top = Math.random() * 100 + "%";-->
+<!--            document.body.appendChild(firework);-->
+
+<!--            setTimeout(() => {-->
+<!--                firework.remove();-->
+<!--            }, 1000);-->
+<!--        }-->
+
+<!--        setInterval(createFirework, 500);-->
+<!--    </script>-->
+<!--</body>-->
+<!--</html>-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <title>Your Surprise Awaits!</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: white;
+            overflow: hidden;
+<!--            background-size: cover; /* Ensures the image covers the full screen */-->
+            background-repeat: no-repeat; /* Avoids repeating the image */
+            background-color: #000; /* Fallback color for areas not covered by the image */
+            transition: background-image 1s ease-in-out; /* Smooth transition between images */
+        }
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            color: white;
+            background: #ff6b81;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .button:hover {
+            background: white;
+            color: #ff6b81;
+            box-shadow: 0 6px 15px rgba(255, 107, 129, 0.8);
+        }
+        .container {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            max-width: 600px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #ffd700;
+            margin: 0;
+            font-family: 'Great Vibes', cursive;
+        }
+
+        p {
+            font-size: 1.5rem;
+            margin: 20px 0;
+            text-shadow: 1px 1px 5px rgba(255, 255, 255, 0.8);
+            font-family: 'Great Vibes', cursive;
+        }
+
+        audio {
+            margin-top: 20px;
+            width: 100%;
+            outline: none;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #lyrics {
+            font-size: 1.2rem;
+            color: #ffffff;
+            margin-top: 20px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Surpriseee..! 🎁</h1>
+        <div class="meter-container">
+            <p>How much do I love you?</p>
+            <button onclick="startMeter()" class="button">Find Out! ❤️</button>
+            <p id="meter-output" style="font-size: 1.5rem; color: #ff6b81;"></p>
+        </div>
+        <p style="color: red;" >
+            Before you press play, my love, do me a little favor. Grab your phone and start recording yourself. I want to treasure the sparkle in your eyes, the smile on your lips, and the magic of this moment forever. You’re my everything, and seeing your joy is the greatest gift I could ever ask for. 🎥❤️
+        </p>
+        <audio id="audio-player" controls>
+            <source src="/static/I miss you.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <div id="lyrics"></div>
+    </div>
+
+    <script>
+        const folderPath = "/static/image/"; // Replace with your folder path
+        const imageExtension = ".jpg"; // Specify the image extension
+        const totalImages = 60; // Specify the total number of images in the folder
+        const audio = document.getElementById("audio-player");
+        const lyricsElement = document.getElementById("lyrics");
+
+        const timeline = [
+            { timeStart: 0, timeEnd: 17, text: "It started with a call, a chance so rare,\n31st of May, you were simply there.\nA missed video, you said by mistake,\nBut that little moment made my heart awake." },
+            { timeStart: 17, timeEnd: 32, text: "Through the highs and lows, the smiles, the tears,\nFour and a half of the sweetest years.\nI still see your face on your first birthday,\nYour hug so tight, it took pain away." },
+            { timeStart: 32, timeEnd: 57, text: "I miss your eyes, your jhumkas so bright,\nYour voice, your laugh, my guiding light.\nFrom temples we prayed to the moonlit skies,\nI’ll hold your hand, no more goodbyes.\nLet’s start again, just me and you,\nForever begins with love so true." },
+            { timeStart: 57, timeEnd: 73, text: "Secret cafes and cuddles at night,\nIce cream runs under soft streetlight.\nMeghana biryani, those meals we’d share,\nEvery little moment, love filled the air." },
+            { timeStart: 73, timeEnd: 88, text: "The sleeper bus rides, the moon as our guide,\nMirror selfies, mornings side by side.\nYoga days, laughter, your touch so divine,\nEven in struggles, I’m glad you’re mine." },
+            { timeStart: 88, timeEnd: 113, text: "I miss your eyes, your jhumkas so bright,\nYour voice, your laugh, my guiding light.\nFrom temples we prayed to the moonlit skies,\nI’ll hold your hand, no more goodbyes.\nLet’s start again, just me and you,\nForever begins with love so true." },
+            { timeStart: 113, timeEnd: 128, text: "I know I’ve stumbled, made you feel pain,\nBut without your love, I’d go insane.\nI’ll love you stronger, I’ll make it right,\nWith you, my days turn into light." },
+            { timeStart: 128, timeEnd: 148, text: "Let’s travel the world, just us two,\nFrom mountains so high to oceans blue.\nI’ll cherish your kiss, your touch, your smile,\nTo be with you makes life worthwhile." },
+            { timeStart: 148, timeEnd: 165, text: "So on your birthday, though I’m not near,\nMy heart is with you, my words sincere.\nForever starts now, we’ll rewrite the story,\nWith love that’s endless, in all its glory." },
+            { timeStart: 165, timeEnd: 172, text: "Forever starts with you, the one I adore,\nOn your birthday, I’ll love you more." },
+        ];
+
+        let currentIndex = 1;
+        let slideshowInterval;
+
+        function updateBackgroundAndLyrics() {
+            const currentTime = audio.currentTime;
+
+            // Update background image
+            currentIndex = Math.ceil((currentTime / audio.duration) * totalImages);
+            document.body.style.backgroundImage = `url('${folderPath}${currentIndex}${imageExtension}')`;
+
+            // Update lyrics
+            const currentLyrics = timeline.find(t => currentTime >= t.timeStart && currentTime < t.timeEnd);
+            if (currentLyrics) {
+                lyricsElement.textContent = currentLyrics.text;
+            } else {
+                lyricsElement.textContent = "";
+            }
+        }
+
+        audio.addEventListener("play", () => {
+            slideshowInterval = setInterval(updateBackgroundAndLyrics, 500);
+        });
+
+        audio.addEventListener("pause", () => {
+            clearInterval(slideshowInterval);
+        });
+
+        audio.addEventListener("timeupdate", updateBackgroundAndLyrics);
+
+        function startMeter() {
+            let output = document.getElementById("meter-output");
+            let count = 0;
+            let interval = setInterval(() => {
+                count += 5;
+                output.innerText = `${count}%`;
+                if (count === 100) {
+                    clearInterval(interval);
+                    output.innerText = "100% – And moreeeee...! ❤️";
+                }
+            }, 100);
+        }
+    </script>
+</body>
+</html>

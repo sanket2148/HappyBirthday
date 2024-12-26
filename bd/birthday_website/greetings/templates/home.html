@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, My Love!</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('/static/bg.jpg') no-repeat center center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: white;
+            overflow: hidden;
+        }
+
+        /* Container Styling */
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #ff6b81;
+            margin: 0;
+            text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.8);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: white;
+            margin: 20px 0;
+            text-shadow: 1px 1px 5px rgba(255, 255, 255, 0.6);
+        }
+
+        .heart {
+            color: #ff6b81;
+            font-size: 2.5rem;
+            margin: 20px 0;
+            animation: pulse 1.5s infinite;
+        }
+
+<!--        .gift-box {-->
+<!--            display: inline-block;-->
+<!--            width: 100px;-->
+<!--            height: 100px;-->
+<!--            background: linear-gradient(45deg, #ff6b81, #ff9a9e);-->
+<!--            border-radius: 10px;-->
+<!--            position: relative;-->
+<!--            cursor: pointer;-->
+<!--            box-shadow: 0 6px 15px rgba(255, 107, 129, 0.5);-->
+<!--            animation: pulse 2s infinite;-->
+<!--            overflow: hidden;-->
+<!--        }-->
+
+<!--        .gift-box:before {-->
+<!--            content: '';-->
+<!--            position: absolute;-->
+<!--            top: 50%;-->
+<!--            left: 50%;-->
+<!--            width: 60%;-->
+<!--            height: 10px;-->
+<!--            background: #fff;-->
+<!--            transform: translate(-50%, -50%);-->
+<!--            border-radius: 5px;-->
+<!--        }-->
+
+<!--        .gift-box:after {-->
+<!--            content: '';-->
+<!--            position: absolute;-->
+<!--            top: 50%;-->
+<!--            left: 50%;-->
+<!--            width: 10px;-->
+<!--            height: 60%;-->
+<!--            background: #fff;-->
+<!--            transform: translate(-50%, -50%);-->
+<!--            border-radius: 5px;-->
+<!--        }-->
+        .gift-box {
+        font-size: 4rem;
+        display: inline-block;
+        cursor: pointer;
+        animation: pop-up 0.5s infinite;
+    }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+        @keyframes pop-up {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="hearts-container">
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+</div>
+
+<div class="container">
+    <h1 style="color: red;">Happy Birthday, My Euphoria!</h1>
+    <div class="heart">❤️</div>
+    <h2>
+        My love, you are the melody to my heart and the light to my soul. Every moment with you feels like magic, and today, we celebrate <b>you</b>—the most beautiful part of my world. 💖
+        <br><br>
+        Close your eyes 🙈 for a second and imagine the universe whispering🤫 your name, showering you with stars and endless love. 🌌✨ Today, I have a special treasure for you, wrapped with all my heart in the below gift box.
+    </h2>
+    <div class="gift-box" onclick="openSurprise()">🎁</div>
+</div>
+
+<script>
+    function openSurprise() {
+        window.location.href = "/surprise/";
+    }
+</script>
+</body>
+</html>
