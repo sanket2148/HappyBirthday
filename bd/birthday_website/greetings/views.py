@@ -15,10 +15,10 @@ def login_view(request):
             error_message = "Invalid username or password."
     return render(request, "login.html", {"error_message": error_message})
 
-@login_required
+# @login_required
 def home(request):
     return render(request, 'home.html')
 
-@login_required
+# @login_required
 def surprise(request):
     return render(request, 'surprise.html')
