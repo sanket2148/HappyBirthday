@@ -114,15 +114,19 @@ USE_I18N = True
 USE_TZ = True
 
 import os
+from pathlib import Path
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# Base directory (automatically resolves to 'bd' folder)
+BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Static files configuration
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # Absolute path for collecting static files
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # Directory for collectstatic
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'greetings', 'static'),  # Include the app-level static directory
+    os.path.join(BASE_DIR, 'birthday_website', 'greetings', 'static'),  # Include greetings static directory
 ]
+
 
 
 # Default primary key field type
