@@ -113,17 +113,17 @@ USE_I18N = True
 
 USE_TZ = True
 
+import os
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
-# STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR / 'greetings/static']
-# STATIC_ROOT = '/home/your-username/HappyBirthday/bd/static'
-# import os
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 STATIC_URL = '/static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # Absolute path for collecting static files
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'greetings', 'static'),  # Include the app-level static directory
+]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
