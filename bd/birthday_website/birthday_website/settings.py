@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-ip=p+x_bspzrtk8qkr72ger1-=le-(t095q&9b0yhqf$f)l_cz
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['birthday-website.herokuapp.com']
+ALLOWED_HOSTS = ['sanketavaralli321.pythonanywhere.com']
 
 
 
